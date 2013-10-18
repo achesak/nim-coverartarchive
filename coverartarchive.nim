@@ -7,6 +7,7 @@
 import httpclient
 import json
 import strutils
+import strtabs
 
 
 # Define the types.
@@ -70,3 +71,43 @@ proc getCoverArt*(mbid : string): TCoverArtData =
     
     # Return the cover art data.
     return coverArt
+
+
+proc getFront*(mbid : string): string = 
+    ## Gets the front cover art for the MusicBrainz release with id mbid.
+    
+    # Get the data.
+    var response : TResponse = get("http://coverartarchive.org/release/" & mbid & "/front")
+    
+    # Return the cover art.
+    return response.headers["Location"]
+
+
+proc getBack*(mbid : string): string = 
+    ## Gets the back cover art for the MusicBrainz release with id mbid.
+    
+    # Get the data.
+    var response : TResponse = get("http://coverartarchive.org/release/" & mbid & "/back")
+    
+    # Return the cover art.
+    return response.headers["Location"]
+
+
+proc getID*(mbid : string, id : string): string = 
+    ## Gets the cover art designated by id for the MusicBrainz release with id mbid.
+    
+    # Get the data.
+    var response : TResponse = get("http://coverartarchive.org/release/" & mbid & "/" & id)
+    
+    # Return the cover art.
+    return response.headers["Location"]
+
+
+proc getThumbnail*(mbid : string, id : string, size : int): string = 
+    ## Gets the cover art designated by id for the MusicBrainz release with id mbid. size can be 250 or 500, and id can be either "front", "back", or a cover id.
+    
+    # Get the data.
+    var response : TResponse = get("http://coverartarchive.org/release/" & mbid & "/" & id & "-" & intToStr(size))
+    
+    # Return the cover art.
+    return response.headers["Location"]
