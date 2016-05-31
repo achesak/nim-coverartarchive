@@ -1,9 +1,9 @@
 [Package]
 name = "coverartarchive"
-version = "0.1.0"
+version = "0.2"
 author = "Adam Chesak"
 description = "Cover Art Archive API wrapper"
 license = "MIT"
 
 [Deps]
-Requires: "nimrod >= 0.9.2"
+Requires: "nim >= 0.13"
