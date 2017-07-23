@@ -24,7 +24,8 @@ proc getCoverArt*(mbid : string): CoverArtData =
     var coverArt : CoverArtData
     
     # Get the data.
-    var response : string = getContent("http://coverartarchive.org/release/" & mbid)
+    var client = newHttpClient()
+    var response : string = client.getContent("http://coverartarchive.org/release/" & mbid)
     
     # Convert the data to JSON.
     var jsonData : JsonNode = parseJson(response)
@@ -75,7 +76,7 @@ proc getFront*(mbid : string): string =
     ## Gets the front cover art for the MusicBrainz release with id mbid.
     
     # Get the data.
-    var response : Response = get("http://coverartarchive.org/release/" & mbid & "/front")
+    var response : Response = newHttpClient().get("http://coverartarchive.org/release/" & mbid & "/front")
     return response.headers["Location"]
 
 
@@ -83,7 +84,7 @@ proc getBack*(mbid : string): string =
     ## Gets the back cover art for the MusicBrainz release with id mbid.
     
     # Get the data.
-    var response : Response = get("http://coverartarchive.org/release/" & mbid & "/back")
+    var response : Response = newHttpClient().get("http://coverartarchive.org/release/" & mbid & "/back")
     return response.headers["Location"]
 
 
@@ -91,7 +92,7 @@ proc getID*(mbid : string, id : string): string =
     ## Gets the cover art designated by id for the MusicBrainz release with id mbid.
     
     # Get the data.
-    var response : Response = get("http://coverartarchive.org/release/" & mbid & "/" & id)
+    var response : Response = newHttpClient().get("http://coverartarchive.org/release/" & mbid & "/" & id)
     return response.headers["Location"]
 
 
@@ -99,5 +100,5 @@ proc getThumbnail*(mbid : string, id : string, size : int): string =
     ## Gets the cover art designated by id for the MusicBrainz release with id mbid. size can be 250 or 500, and id can be either "front", "back", or a cover id.
     
     # Get the data.
-    var response : Response = get("http://coverartarchive.org/release/" & mbid & "/" & id & "-" & intToStr(size))
+    var response : Response = newHttpClient().get("http://coverartarchive.org/release/" & mbid & "/" & id & "-" & intToStr(size))
     return response.headers["Location"]
