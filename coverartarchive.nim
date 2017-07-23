@@ -11,10 +11,24 @@ import strtabs
 
 
 type
-    CoverArtThumbnails* = tuple[large : string, small : string]
-    CoverArtImage* = tuple[types : seq[string], front : bool, back : bool, edit : int, image : string, comment : string,
-                             approved : bool, thumbnails : CoverArtThumbnails, id : string]
-    CoverArtData* = tuple[images : seq[CoverArtImage], release : string]
+    CoverArtThumbnails* = ref object
+        large* : string
+        small* : string
+
+    CoverArtImage* = ref object
+        types* : seq[string]
+        front* : bool
+        back* : bool
+        edit* : int
+        image* : string
+        comment* : string
+        approved* : bool
+        thumbnails* : CoverArtThumbnails
+        id* : string
+
+    CoverArtData* = ref object
+        images* : seq[CoverArtImage]
+        release* : string
 
 
 proc getCoverArt*(mbid : string): CoverArtData =
