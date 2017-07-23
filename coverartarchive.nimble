@@ -1,6 +1,6 @@
 [Package]
 name = "coverartarchive"
-version = "0.2"
+version = "0.3"
 author = "Adam Chesak"
 description = "Cover Art Archive API wrapper"
 license = "MIT"
